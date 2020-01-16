@@ -1,0 +1,9 @@
+
+    <div class="card" style="width:400px" *ngIf="true">
+        <div class="card-body">
+            <h4 class="card-title">Child Component</h4>
+            <input type="text" [(ngModel)]="childData" />&nbsp;&nbsp;&nbsp;
+            <p class="card-text">Message from parent: {{ dataFromParent }}</p>
+            <button class="btn btn-primary" (click)="replyMessage(childData)">Reply</button>
+        </div>
+    </div>

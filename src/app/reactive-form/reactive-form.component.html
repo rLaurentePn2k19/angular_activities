@@ -1,0 +1,66 @@
+<div class="card" style="width: 18rem; margin-top:5% ; float: left; margin-left: 10%" *ngIf="!show">
+    <div class="card-body">
+        <h5 class="card-title">Reactive Form</h5><br>
+        <form (ngSubmit)="onSubmit()" [formGroup]="userInformation">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="First name" formControlName="firstname">
+                <span *ngIf="userInformation.get('firstname').hasError('required') && userInformation.controls['firstname']?.touched"
+                    [style.color]="dangerColor">
+                    This field is required
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Last name" formControlName="lastname">
+                <span *ngIf="userInformation.get('lastname').hasError('required') && userInformation.controls['lastname']?.touched">
+                    <p [style.color]="dangerColor">This field is required</p>
+                </span>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" formControlName="email">
+                <span *ngIf="userInformation.get('email').hasError('required') && userInformation.controls['email']?.touched">
+                    <p [style.color]="dangerColor">This field is required</p>
+                    <p [style.color]="dangerColor" *ngIf="userInformation.get('email').hasError('pattern')">Invalid
+                        Email</p>
+                </span>
+            </div>
+            <div formGroupName="address">
+                <div class="form-group">
+                    <h6 class="card-text">Address</h6>
+                    <input type="text" class="form-control" placeholder="Street" formControlName="street">
+                    <span *ngIf="userInformation.get('street').hasError('required') && userInformation.controls['street']?.touched">
+                        <p [style.color]="dangerColor">This field is required</p>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="City" formControlName="city">
+                    <span *ngIf="userInformation.get('city').hasError('required') && userInformation.controls['city']?.touched">
+                        <p [style.color]="dangerColor">This field is required</p>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="State" formControlName="state">
+                    <span *ngIf="userInformation.get('state').hasError('required') && userInformation.controls['state']?.touched">
+                        <p [style.color]="dangerColor">This field is required</p>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Zip code" formControlName="zipcode">
+                    <span *ngIf="userInformation.get('zipcode').hasError('required') && userInformation.controls['zipcode']?.touched">
+                        <p [style.color]="dangerColor">This field is required</p>
+                    </span>
+                </div>
+            </div>
+            <button mat-raised-button color="accent" type="submit" [disabled]="!userInformation.valid">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem; margin-top:10% ; float: left; margin-left: 10%" *ngIf="show">
+    <div class="card-body">
+        <h5 class="card-title">Information</h5><br>
+        <div>
+            <p> {{ userInformation.value | json }}</p>
+        </div>
+        <button mat-raised-button color="accent" (click)="back()" type="submit">Back</button>
+    </div>
+</div>

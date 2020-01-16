@@ -1,0 +1,50 @@
+
+<div class="card" style="width: 18rem; margin-top:10% ; float: left; margin-left: 10%" *ngIf="!show">
+    <div class="card-body">
+        <h5 class="card-title">Template Driven Form</h5><br>
+        <form (ngSubmit)="onSubmit()" #form="ngForm">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter name" name="name" [(ngModel)]="fullname"
+                    #name="ngModel" required minlength="4">
+                <span *ngIf="name.invalid && (name.dirty || name.touched) ; else elseBlock">
+                    <p *ngIf="name.errors.required" [style.color]="dangerColor">Name is Required</p>
+                    <p *ngIf="name.errors.minlength" [style.color]="dangerColor">Name must be at least 4 characters</p>
+                </span>
+                <ng-template #elseBlock>
+                    <p *ngIf="name.valid" [style.color]="successColor">Your name is valid</p>
+                </ng-template>
+            </div>
+            <div class="form-group">
+                <input type="email" class="form-control" placeholder="Enter email" name="email" [(ngModel)]="dEmail"
+                    #email="ngModel" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                <span *ngIf="email.invalid && (email.dirty || email.touched) ; else emailElse">
+                    <p *ngIf="email.errors.required" [style.color]="dangerColor">Email is Required</p>
+                    <p *ngIf="email.errors.pattern" [style.color]="dangerColor">Email is invalid</p>
+                </span>
+                <ng-template #emailElse>
+                    <p *ngIf="email.valid" [style.color]="successColor">Email is valid</p>
+                </ng-template>
+            </div>
+            <div class="form-group">
+                <select class="custom-select" name="gender" [(ngModel)]="dGender">
+                    <option selected>Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <button mat-raised-button color="accent" type="submit" [disabled]="!form.valid">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem; margin-top:10% ; float: left; margin-left: 10%" *ngIf="show">
+    <div class="card-body">
+        <h5 class="card-title">Information</h5><br>
+        <div *ngFor="let info of information">
+            <p>Name: {{ info.name }}</p>
+            <p>Email: {{ info.email }}</p>
+            <p>Gender: {{ info.gender }}</p>
+        </div>
+        <button mat-raised-button color="accent" (click)="onEdit()" type="submit">Edit</button>
+    </div>
+</div>

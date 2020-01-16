@@ -1,0 +1,60 @@
+<mat-grid-list cols="2" rowHeight="2:1" >
+    <mat-grid-tile >
+        <mat-card class="example-card" id="dragTest" cdkDrag>
+            <mat-card-header>
+                <mat-card-title>Mother Component</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field appearance="outline">
+                    <mat-label>Full name</mat-label>
+                    <input matInput placeholder="e.g Rangie Laurente" [(ngModel)]="parentName">
+                </mat-form-field>
+                <section class="example-section">
+                    <mat-checkbox class="example-margin" [(ngModel)]="parentEnrolled">Enrolled</mat-checkbox>
+                </section>
+                <mat-form-field>
+                    <mat-label>Gender</mat-label>
+                    <mat-select [(ngModel)]="parentGender">
+                        <mat-option *ngFor="let gen of gender" [value]="gen.value">
+                            {{gen.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field><br>
+                <mat-label *ngIf="dataFromChild">Notification: {{ dataFromChild }}</mat-label>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="accent" (click)="submitInfo()">Submit</button>
+            </mat-card-actions>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <app-activity5-child-component (notificationEvent)="dataFromChild=$event" 
+            (declinedEvent)="dec=$event"
+            [dataFromParent]="parentInformation"></app-activity5-child-component>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <!-- <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>List of Declined</mat-card-title>
+            </mat-card-header>
+            <mat-card-content *ngFor="let d of dec">
+                <p>Name: {{d.name}} | Enroll status: {{d.enrolled}} | Gender: {{d.gender}}</p>
+            </mat-card-content>
+        </mat-card> -->
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        List of Declined
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-card-content *ngFor="let d of dec">
+                    <p>Name: {{d.name}} | Enroll status: {{d.enrolled}} | Gender: {{d.gender}}</p>
+                </mat-card-content>
+            </mat-expansion-panel>
+            <!-- <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            </mat-expansion-panel> -->
+        </mat-accordion>
+    </mat-grid-tile>
+
+</mat-grid-list>
